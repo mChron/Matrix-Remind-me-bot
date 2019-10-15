@@ -20,6 +20,7 @@ reminders to users.
 
 ## Interacting With The Bot
 *All commands are case insensitive, but require the first char to be an exclamation !*
+1. Invite the bot to a private chat, the bot should send you a message on join with command usage info
 * **!(setreminder|remindme)**: make a reminder. Usage: !setreminder <time><unit> <message>, e.g. !setreminder 5m Check the kettle or !remindme 5m Check the kettle
 * **!resetreminder**: reset a (non-interval) reminder. Usage: !resetreminder <index>, e.g. !resetreminder 2
 * **!setinterval**: make a reminder that runs on an interval. Usage: !setinterval <time><unit> <message>
@@ -49,6 +50,8 @@ reminders to users.
 ```
 
 3. Add your access token in the `""`, and the same for the homeserver url.
+   1. To obtain your access token login with the credentials for your bot
+   2. Expand user settings > Help & About > Advanced > `Access Token: <click to reveal>`
 4. To run the bot type `npm start`
 
 ## Building The Docker Image
