@@ -1,5 +1,5 @@
 export class NotificationMap extends Map<string, Notification[]> {
-    addNotification(sender:string, message:string, delay:number, timer:NodeJS.Timer) {
+    addNotification(sender:string, message:string, delay:number, timer:NodeJS.Timer, isInterval:boolean) {
         if (!this.has(sender)) {
             this.set(sender, []);
         }
@@ -7,10 +7,13 @@ export class NotificationMap extends Map<string, Notification[]> {
         userArray.push({
             timer,
             message,
-            timeout: delay
+            timeout: delay,
+            passed: false,
+            interval: isInterval
         })
         this.set(sender, userArray)
-    } 
+        return userArray.length - 1
+    }
 
     removeNotification(sender:string, timerNumber:number) {
         if (!this.has(sender)) {
@@ -21,13 +24,33 @@ export class NotificationMap extends Map<string, Notification[]> {
             return;
         }
         const [notif] = userArray.splice(timerNumber-1, 1)
-        this.set(sender, userArray)
+        if (userArray.length === 0) {
+            this.delete(sender)
+        }
+        else {
+            this.set(sender, userArray)
+        }
         return notif;
+    }
+
+    flagNotificationPassed(sender:string, timerNumber:number, truth:boolean) {
+        console.log("Entered flagNotificationPassed")
+        if (!this.has(sender)) {
+            return;
+        }
+        const userArray = this.get(sender)!
+        console.log(userArray)
+        if (userArray.length < timerNumber) {
+            return;
+        }
+        userArray[timerNumber]["passed"] = truth
     }
 }
 
 interface Notification {
     timer:NodeJS.Timer,
     message: string,
-    timeout: number
+    timeout: number,
+    passed: boolean,
+    interval: boolean
 }
