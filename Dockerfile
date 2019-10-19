@@ -24,8 +24,8 @@ LABEL org.opencontainers.image.created="${BUILD_DATE_TIME}" \
   org.opencontainers.image.ref.name="" \
   org.opencontainers.image.title="Matrix Remind Me Bot" \
   org.opencontainers.image.description="Docker image for Remind Me - A matrix chat bot to remind you. Fork of repo by joakimvonanka https://github.com/joakimvonanka/Matrix-Remind-me-bot" \
-  org.label-schema.docker.cmd="docker run ${IMAGE_TAG}" \
-  org.label-schema.docker.cmd.debug="docker exec -it --rm --entrypoint /bin/bash [CONTAINER]" \
+  org.label-schema.docker.cmd="docker run -d -v $(pwd)/config.json:/app/config.json:ro -v $(pwd)/notif_bot.js/app/notif_bot.json:rw --name mtx-reminder-bot ${IMAGE_TAG}" \
+  org.label-schema.docker.cmd.debug="docker exec -it --entrypoint /bin/bash [CONTAINER]" \
   org.label-schema.docker.params="" \
   afrl.cecep.image.component.node.version="${NODE_VERSION}"
 

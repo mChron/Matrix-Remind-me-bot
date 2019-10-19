@@ -12,11 +12,11 @@ TZ := America/New_York
 .PHONY: all
 all: docker
 
-docker: Dockerfile
+docker:
 	$(eval VERSION := $(shell git describe --tags || echo "1.0"))
 	$(eval BRANCH := $(shell git rev-parse --abbrev-ref HEAD))
-	$(eval REPO := $(shell git config --local remote.$(REMOTE).url|sed -E "s/(http[s]?:\/\/|ssh:\/\/git)(.+:.+)@/\1/g"))
-	$(eval PROJECT := $(shell git config --local remote.$(REMOTE).url|sed -n 's#.*/\([^.]*\)\.git#\1#p'))
+	$(eval REPO := $(shell git config --local remote.$(REMOTE).url|sed -E "s/(http[s]?:\/\/|ssh:\/\/git)(.+:.+)@/\1/g"|sed 's/./\L&/g'))
+	$(eval PROJECT := $(shell git config --local remote.$(REMOTE).url|sed -n 's#.*/\([^.]*\)\.git#\1#p'|sed 's/./\L&/g'))
 	$(eval IMAGE_TAG := $(DOCKER_TAG_BASE)$(PROJECT):$(VERSION))
 	$(eval LATEST_TAG := $(DOCKER_TAG_BASE)$(PROJECT):latest)
 	$(eval GIT_SHA := $(shell git rev-parse --verify HEAD))

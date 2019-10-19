@@ -54,7 +54,9 @@ reminders to users.
    2. Expand user settings > Help & About > Advanced > `Access Token: <click to reveal>`
 4. To run the bot type `npm start`
 
-## Building The Docker Image
+## Pulling/Building The Docker Image
+**The docker image is available on [docker hub](https://hub.docker.com/u/mchron/)**
+* `docker pull mchron/matrix_remind_me_bot:latest`
 * `docker build -t matrix-remind-me-bot:latest ./`
 * If you have Gnu Make
     * ```make docker```
@@ -70,11 +72,11 @@ reminders to users.
 ## Creating/Running The Docker Container
 * Docker run
 
-    ```docker run -d -v $(pwd)/config.json:/app/config.json:ro -v $(pwd)/notif_bot.js/app/notif_bot.json:rw --name mtx-reminder-bot matrix-remind-me-bot:latest```
+    ```docker run -d -v $(pwd)/config.json:/app/config.json:ro -v $(pwd)/notif_bot.js/app/notif_bot.json:rw --name mtx-reminder-bot mchron/matrix_remind_me_bot:latest```
 * Docker-compose
     ```
     mtx-reminder-bot:
-      image: matrix-remind-me-bot:latest
+      image: mchron/matrix_remind_me_bot:latest
       volumes:
         - ./config.json:/app/config.json:ro
         - ./notif_bot.js:/app/notif_bot.json:rw
